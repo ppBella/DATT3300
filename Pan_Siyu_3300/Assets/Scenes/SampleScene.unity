@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractSource: {fileID: 963194228}
-  InteractRange: 50
+  InteractRange: 10
   interactionText: {fileID: 854025951}
 --- !u!1 &1272161396
 GameObject:
