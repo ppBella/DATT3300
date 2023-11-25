@@ -75,5 +75,14 @@ public class PlayerController : MonoBehaviour
         {
             jumpForce = 15;
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Exit the application
+            #if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                        Application.Quit();
+            #endif
+        }
     }
 }
