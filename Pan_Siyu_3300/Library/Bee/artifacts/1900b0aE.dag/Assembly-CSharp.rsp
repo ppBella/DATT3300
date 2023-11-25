@@ -357,6 +357,7 @@
 "Assets/Scripts/Interactor.cs"
 "Assets/Scripts/MoveCam.cs"
 "Assets/Scripts/NumberGenerator.cs"
+"Assets/Scripts/ObjectInteraction.cs"
 "Assets/Scripts/PlayerCam.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
