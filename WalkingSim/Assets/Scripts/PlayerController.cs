@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
@@ -16,16 +16,12 @@ public class PlayerController : MonoBehaviour
 
     public float walkSpeed;
     public bool walking;
-    public float sprintSpeed;
-    public bool running;
-
-    [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     public bool grounded;
+
 
     public Transform orientation;
 
@@ -35,7 +31,6 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-
 
     private void Start()
     {
@@ -48,8 +43,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 1f + 1f, whatIsGround);
-	
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+
         MyInput();
         SpeedControl();
 
@@ -67,7 +62,6 @@ public class PlayerController : MonoBehaviour
             #else
                         Application.Quit();
             #endif
-            
         }
     }
 
@@ -78,12 +72,11 @@ public class PlayerController : MonoBehaviour
 
     private void MyInput()
     {
-        running = false;
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && (grounded))
+        if(Input.GetKey(KeyCode.Space) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -95,13 +88,9 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
         {
             Run();
-            running = true;
         }else{
             Walk();
-            walking = true;
-            running = false;
         }
-
     }
 
     private void MovePlayer()
@@ -116,12 +105,14 @@ public class PlayerController : MonoBehaviour
         // in air
         else if(!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-
     }
+
     //running
-    private void Run(){
+    private void Run()
+    {
         moveSpeed = runSpeed; // Set the movement speed to run speed
     }
+
     private void Walk()
     {
         moveSpeed = walkSpeed; // Set the movement speed to walk speed
@@ -146,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
     private void ResetJump()
     {
         readyToJump = true;
